@@ -1,21 +1,38 @@
 package encryptdecrypt;
 
-import encryptdecrypt.strategies.CaesarCipherEngLetters;
 import encryptdecrypt.strategies.CaesarCipherUnicode;
 
-import java.util.Scanner;
 import java.util.function.UnaryOperator;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String operation = scanner.nextLine();
-        String message = scanner.nextLine();
-        int key = scanner.nextInt();
-        if ("dec".equals(operation)) {
+
+        boolean encMode = true;
+        int key = 0;
+        String data = "";
+
+        for (int i = 0; i < args.length - 1; i += 2) {
+            switch (args[i]) {
+                case "-mode":
+                    if ("dec".equals(args[i + 1])) {
+                        encMode = false;
+                    }
+                    break;
+                case "-key":
+                    key = Integer.parseInt(args[i + 1]);
+                    break;
+                case "-data":
+                    data = args[i + 1];
+                    break;
+            }
+        }
+
+        if (!encMode) {
             key = -key;
         }
+
+
         UnaryOperator<String> encryptor = new CaesarCipherUnicode(key)::apply;
-        System.out.println(encryptor.apply(message));
+        System.out.println(encryptor.apply(data));
     }
 }
