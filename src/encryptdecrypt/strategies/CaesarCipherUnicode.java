@@ -8,6 +8,6 @@ public class CaesarCipherUnicode extends CaesarCipher {
 
     @Override
     char shiftChar(char ch) {
-        return 0;
+        return (char) (ch + getKey());
     }
 }

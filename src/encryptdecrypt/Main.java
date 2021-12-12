@@ -1,6 +1,7 @@
 package encryptdecrypt;
 
 import encryptdecrypt.strategies.CaesarCipherEngLetters;
+import encryptdecrypt.strategies.CaesarCipherUnicode;
 
 import java.util.Scanner;
 import java.util.function.UnaryOperator;
@@ -14,7 +15,7 @@ public class Main {
         if ("dec".equals(operation)) {
             key = -key;
         }
-        UnaryOperator<String> encryptor = new CaesarCipherEngLetters(key)::apply;
+        UnaryOperator<String> encryptor = new CaesarCipherUnicode(key)::apply;
         System.out.println(encryptor.apply(message));
     }
 }

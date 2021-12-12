@@ -15,9 +15,8 @@ public abstract class CaesarCipher {
     public String apply(String input) {
         StringBuilder output = new StringBuilder("");
         for (char ch : input.toCharArray()) {
-
+            output.append(shiftChar(ch));
         }
-
         return output.toString();
     }
 

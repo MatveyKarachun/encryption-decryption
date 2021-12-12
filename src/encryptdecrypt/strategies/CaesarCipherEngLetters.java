@@ -10,6 +10,11 @@ public class CaesarCipherEngLetters extends CaesarCipher {
 
     @Override
     char shiftChar(char ch) {
-        return 0;
+        if (ch >= 'a' && ch <= 'z') {
+            return (char) ((ch - 'a' + getKey()) % engAlphabetSize + 'a');
+        } else if (ch >= 'A' && ch <= 'Z') {
+            return (char) ((ch - 'A' + getKey()) % engAlphabetSize + 'A');
+        }
+        return ch;
     }
 }
