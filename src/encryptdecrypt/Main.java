@@ -3,10 +3,11 @@ package encryptdecrypt;
 import encryptdecrypt.strategies.CaesarCipher;
 import encryptdecrypt.strategies.CaesarCipherUnicode;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.function.UnaryOperator;
 
 public class Main {
     public static void main(String[] args) {
@@ -36,11 +37,11 @@ public class Main {
                     thereIsData = true;
                     break;
                 case "-in":
-                    inPath = args[i];
+                    inPath = args[i + 1];
                     thereIsInPath = true;
                     break;
                 case "-out":
-                    outPath = args[i];
+                    outPath = args[i + 1];
                     thereIsOutPath = true;
                     break;
             }
@@ -55,13 +56,20 @@ public class Main {
                 data = new String(Files.readAllBytes(Paths.get(inPath)));
             } catch (IOException e) {
                 System.out.println("Error: can't read file");
+                System.exit(0);
             }
         }
 
         CaesarCipher cipher = new CaesarCipherUnicode(key);
         String result = cipher.apply(data);
         if (thereIsOutPath) {
-
+            File file = new File(outPath);
+            try (FileWriter fileWriter = new FileWriter(file)) {
+                fileWriter.write(result);
+            } catch (IOException e) {
+                System.out.println("Error: can't write file");
+                System.exit(0);
+            }
         } else {
             System.out.println(result);
         }
