@@ -1,8 +1,8 @@
-package encryptdecrypt.strategies;
+package encryptdecrypt.ciphers;
 
 public class CaesarCipherUnicode extends CaesarCipher {
 
-    public CaesarCipherUnicode(int key) {
+    CaesarCipherUnicode(int key) {
         super(key);
     }
 

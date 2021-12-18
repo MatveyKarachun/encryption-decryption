@@ -1,7 +1,6 @@
 package encryptdecrypt;
 
-import encryptdecrypt.strategies.CaesarCipher;
-import encryptdecrypt.strategies.CaesarCipherUnicode;
+import encryptdecrypt.ciphers.CaesarCipher;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -16,6 +15,7 @@ public class Main {
         String data = "";
         String inPath = "";
         String outPath = "";
+        String alg = "shift";
 
         boolean encMode = true;
         boolean thereIsData = false;
@@ -44,6 +44,9 @@ public class Main {
                     outPath = args[i + 1];
                     thereIsOutPath = true;
                     break;
+                case "-alg":
+                    alg = args[i + 1];
+                    break;
             }
         }
 
@@ -60,8 +63,9 @@ public class Main {
             }
         }
 
-        CaesarCipher cipher = new CaesarCipherUnicode(key);
+        CaesarCipher cipher = CaesarCipher.createCaesarCipher(alg, key);
         String result = cipher.apply(data);
+
         if (thereIsOutPath) {
             File file = new File(outPath);
             try (FileWriter fileWriter = new FileWriter(file)) {

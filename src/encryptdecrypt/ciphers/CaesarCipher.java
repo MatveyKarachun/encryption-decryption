@@ -1,4 +1,4 @@
-package encryptdecrypt.strategies;
+package encryptdecrypt.ciphers;
 
 public abstract class CaesarCipher {
 
@@ -8,10 +8,11 @@ public abstract class CaesarCipher {
         this.key = key;
     }
 
-    public int getKey() {
+    int getKey() {
         return key;
     }
 
+    //Template method
     public String apply(String input) {
         StringBuilder output = new StringBuilder("");
         for (char ch : input.toCharArray()) {
@@ -22,4 +23,11 @@ public abstract class CaesarCipher {
 
     abstract char shiftChar(char ch);
 
+    public static final CaesarCipher createCaesarCipher(String type, int key) {
+        if ("unicode".equals(type)) {
+            return new CaesarCipherUnicode(key);
+        } else {
+            return new CaesarCipherShiftEngLetters(key);
+        }
+    }
 }
